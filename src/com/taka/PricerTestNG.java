@@ -24,6 +24,9 @@ public class PricerTestNG {
     private static final Logger LOG = Logger.getLogger(PricerTestNG.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    // TODO: In the proper production code,
+    //  the info on the MD and product would have been added into the expected and actual results,
+    //  so that it will display which MD and product failed the test.
     @Test
     public void testAllPrices() throws Exception {
         LOG.info("testAllPrices() Started.");
