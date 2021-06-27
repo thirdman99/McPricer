@@ -1,0 +1,20 @@
+The code under this repository is meant to be opened from IntelliJ, since IntelliJ project contains:
+
+1) Library dependencies.
+2) Main, and "Test Pricer" configurations, which is used to run the main-routine, and the tests.
+
+Two pricers are implemented PricerBS for Black-Scholes, and PricerMC for MonteCarlo.
+The former only supports Vanilla, and the latter can handle different types of products
+as long as they're correctly defined in Product***.java.
+
+Two types of products are defined as per the assignment requirements, ProductVanilla and ProductBarrier.
+
+Json-files are used to defined the inputs as below:
+
+pricingParams.json: Contains the pricing-parameters for MonteCarlo such as the number of simulations and seed.
+marketdata.json: Contains the market-data such as spot, vol, risk-free-rate, and quote-date.
+productsVannia.json: Contains Vanilla option products.
+productsBarrier.json: Contains Barrier option products.
+
+The above files can contain multiple definitions (except for pricingParams.json),
+and the main-routine goes through the permutation of all the entries.
