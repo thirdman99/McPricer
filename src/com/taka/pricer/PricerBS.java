@@ -28,8 +28,6 @@ public class PricerBS implements Pricer {
 
         double basePv;
         double delta;
-        double gamma;
-        double vega;
         double spot = marketData.getSpot();
         double rfr = marketData.getRfr();
         double vol = marketData.getVol();
@@ -39,17 +37,15 @@ public class PricerBS implements Pricer {
             basePv = spot * cumulativeNormalDist(d1AndD2.d1) -
                     strike * Math.exp(-rfr * timeToExpiry) * cumulativeNormalDist(d1AndD2.d2);
             delta = cumulativeNormalDist(d1AndD2.d1);
-            gamma = probabilityDensity(d1AndD2.d1) / (spot * vol * Math.sqrt(timeToExpiry));
-            vega = spot * probabilityDensity(d1AndD2.d1) * Math.sqrt(timeToExpiry);
         } else if (callPut == CallPut.Put) {
             basePv = -spot * cumulativeNormalDist(-d1AndD2.d1) +
                     strike * Math.exp(-rfr * timeToExpiry) * cumulativeNormalDist(-d1AndD2.d2);
             delta = (cumulativeNormalDist(d1AndD2.d1) - 1);
-            gamma = probabilityDensity(d1AndD2.d1) / (spot * vol * Math.sqrt(timeToExpiry));
-            vega = spot * probabilityDensity(d1AndD2.d1) * Math.sqrt(timeToExpiry);
         } else {
             throw new IllegalArgumentException("Unexpected CallPut: " + callPut);
         }
+        double gamma = probabilityDensity(d1AndD2.d1) / (spot * vol * Math.sqrt(timeToExpiry));
+        double vega = spot * probabilityDensity(d1AndD2.d1) * Math.sqrt(timeToExpiry);
         return new Result(basePv, delta, gamma, vega);
     }
 
