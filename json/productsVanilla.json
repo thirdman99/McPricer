@@ -1,0 +1,42 @@
+[
+  {
+    "callPut": "Call",
+    "expiryDate": "2022-06-28",
+    "strike": 100
+  },
+  {
+    "callPut": "Put",
+    "expiryDate": "2022-06-28",
+    "strike": 100
+  },
+  {
+    "callPut": "Call",
+    "expiryDate": "2022-06-28",
+    "strike": 110
+  },
+  {
+    "callPut": "Put",
+    "expiryDate": "2022-06-28",
+    "strike": 110
+  },
+  {
+    "callPut": "Call",
+    "expiryDate": "2022-06-28",
+    "strike": 90
+  },
+  {
+    "callPut": "Put",
+    "expiryDate": "2022-06-28",
+    "strike": 90
+  },
+  {
+    "callPut": "Call",
+    "expiryDate": "2023-06-28",
+    "strike": 100
+  },
+  {
+    "callPut": "Put",
+    "expiryDate": "2023-06-28",
+    "strike": 100
+  }
+]

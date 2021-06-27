@@ -1,0 +1,34 @@
+[
+  {
+    "callPut": "Call",
+    "expiryDate": "2021-12-28",
+    "strike": 100,
+    "barrierType": "DownOut",
+    "barrier": 95,
+    "koPayout": 0
+  },
+  {
+    "callPut": "Put",
+    "expiryDate": "2021-12-28",
+    "strike": 100,
+    "barrierType": "UpOut",
+    "barrier": 105,
+    "koPayout": 0
+  },
+  {
+    "callPut": "Call",
+    "expiryDate": "2021-12-28",
+    "strike": 100,
+    "barrierType": "DownIn",
+    "barrier": 95,
+    "koPayout": 0
+  },
+  {
+    "callPut": "Put",
+    "expiryDate": "2021-12-28",
+    "strike": 100,
+    "barrierType": "UpIn",
+    "barrier": 105,
+    "koPayout": 0
+  }
+]

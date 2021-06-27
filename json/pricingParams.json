@@ -1,0 +1,6 @@
+{
+  "simulationNum": 300000,
+  "seed": 12345,
+  "spotShiftRatio": 0.001,
+  "volShiftRatio": 0.001
+}
