@@ -40,7 +40,7 @@ public class PricerBS implements Pricer {
         } else if (callPut == CallPut.Put) {
             basePv = -spot * cumulativeNormalDist(-d1AndD2.d1) +
                     strike * Math.exp(-rfr * timeToExpiry) * cumulativeNormalDist(-d1AndD2.d2);
-            delta = (cumulativeNormalDist(d1AndD2.d1) - 1);
+            delta = cumulativeNormalDist(d1AndD2.d1) - 1;
         } else {
             throw new IllegalArgumentException("Unexpected CallPut: " + callPut);
         }
@@ -86,14 +86,6 @@ public class PricerBS implements Pricer {
         public D1AndD2(double d1, double d2) {
             this.d1 = d1;
             this.d2 = d2;
-        }
-
-        public double getD1() {
-            return d1;
-        }
-
-        public double getD2() {
-            return d2;
         }
     }
 }
