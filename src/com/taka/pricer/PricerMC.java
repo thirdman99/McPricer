@@ -40,6 +40,7 @@ public class PricerMC implements Pricer {
         double pvVolUp = calcOneShiftedPv(product, marketData,
                 md -> md.setVol(md.getVol() + volShiftAmt));
         double vega = (pvVolUp - pvBase) / volShiftAmt;
+        simPathParams = null;
         return new Result(pvBase, delta, gamma, vega);
     }
 
