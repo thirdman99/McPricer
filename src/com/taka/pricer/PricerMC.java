@@ -27,20 +27,27 @@ public class PricerMC implements Pricer {
         createSimPathList(product, marketData);
 
         double pvBase = calcOnePv(product, marketData);
+
+        // The actual shift-amounts below can be changed in pricingParams.json.
         double spotShiftRatio = pricingParams.getSpotShiftRatio();
         double volShiftRatio = pricingParams.getVolShiftRatio();
         double spotShiftAmt = marketData.getSpot() * spotShiftRatio;
         double volShiftAmt = marketData.getVol() * volShiftRatio;
+
         double pvSpotUp = calcOneShiftedPv(product, marketData,
                 md -> md.setSpot(md.getSpot() + spotShiftAmt));
         double pvSpotDown = calcOneShiftedPv(product, marketData,
                 md -> md.setSpot(md.getSpot() - spotShiftAmt));
         double delta = (pvSpotUp - pvBase) / spotShiftAmt;
         double gamma = (pvSpotUp - pvBase * 2. + pvSpotDown) / (spotShiftAmt * spotShiftAmt);
+
         double pvVolUp = calcOneShiftedPv(product, marketData,
                 md -> md.setVol(md.getVol() + volShiftAmt));
         double vega = (pvVolUp - pvBase) / volShiftAmt;
+
+        // The below is necessary to avoid the unnecessary memory-growth from repeated pricing.
         simPathParams = null;
+
         return new Result(pvBase, delta, gamma, vega);
     }
 
@@ -70,24 +77,27 @@ public class PricerMC implements Pricer {
         for (int timeStepCnt = 0; timeStepCnt < timeStepNum; timeStepCnt++) {
             double timeStep = simPathParams.timeSteps.get(timeStepCnt);
             timeToSim += timeStep;
+
             // Apply the drift-process
             spot *= Math.exp(timeStep * (rfr - 0.5 * vol * vol));
-            double gaussianRandom = randomNumArr[timeStepCnt];
+
             // Apply a Brownian motion.
+            double gaussianRandom = randomNumArr[timeStepCnt];
             spot *= Math.exp(Math.sqrt(vol * vol * timeStep) * gaussianRandom);
 
-            // Check if it's knocked-in if the product has that feature (Barrier).
+            // Check if it's knocked-in if the product has that feature (ex. Barrier).
             if (!knockedIn) {
                 knockedIn = product.isKnockedIn(spot);
             }
-            // Check if it's knocked-out if the product has that feature.
+
+            // Check if it's knocked-out if the product has that feature (ex. Barrier).
             double knockOutPayout = product.getKnockOutPayout(spot);
             if (!Double.isNaN(knockOutPayout)) {
                 // Discount the payout to the PV.
                 return knockOutPayout * Math.exp(-rfr * timeToSim);
             }
         }
-        // Calculate the payoff according to the product definition.
+        // Calculate the payout according to the product definition.
         double payout = product.payout(spot, knockedIn);
         // Discount the payout to the PV.
         return payout * Math.exp(-rfr * simPathParams.timeToExpiry);
