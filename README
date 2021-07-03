@@ -1,7 +1,18 @@
-The code under this repository is meant to be opened from IntelliJ, since IntelliJ project contains:
+The code under this repository can be run either via the run-configurations on the Intellij project, or via Maven.
+You will need to have JDK11 installed locally.
 
-1) Library dependencies.
-2) Main, and "Test Pricer" configurations, which is used to run the main-routine, and the tests.
+A) From the Intellij project.
+  1) Open the intellij project directly under the code package.
+  2) Run either one of the pre-saved run-configurations in the Intellij.
+        "Main" (to run the main-routine), TestPricer (to run the tests)
+  3) You can also run the below run-configurations,
+     which will be effectively the same procedures as the above, but will use the Maven commands instead.
+        Mvn Main, Mvn Test
+
+B) From the command terminal. (This is equivalent to the above A.3.)
+  1) Make sure that the env-var JAVA_HOME is set to your local JDK11 package.
+  2) To run the Main routine: mvn exec:java
+  3) To run the tests: mvn surefire:test
 
 Two pricers are implemented PricerBS for Black-Scholes, and PricerMC for MonteCarlo.
 The former only supports Vanilla, and the latter can handle different types of products

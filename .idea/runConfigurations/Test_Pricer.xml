@@ -5,7 +5,7 @@
     <useClassPathOnly />
     <option name="SUITE_NAME" value="" />
     <option name="PACKAGE_NAME" value="com.taka" />
-    <option name="MAIN_CLASS_NAME" value="com.taka.PricerTestNG" />
+    <option name="MAIN_CLASS_NAME" value="com.taka.PricerTest" />
     <option name="GROUP_NAME" value="" />
     <option name="TEST_OBJECT" value="CLASS" />
     <option name="PARAMETERS" value="" />

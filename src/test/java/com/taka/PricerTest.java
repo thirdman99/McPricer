@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Test()
-public class PricerTestNG {
+public class PricerTest {
     private static final boolean UpdateExpectedResults = false;
-    private static final Logger LOG = Logger.getLogger(PricerTestNG.class);
+    private static final Logger LOG = Logger.getLogger(PricerTest.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // TODO: In the proper production code,
