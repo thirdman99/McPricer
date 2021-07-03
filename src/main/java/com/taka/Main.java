@@ -16,7 +16,11 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            InputSet inputSet = JsonUtil.createInputSetFromJsonFiles(Path.of("./json"));
+            String jsonPathStr = "./json";
+            if (args.length > 0) {
+                jsonPathStr = args[0];
+            }
+            InputSet inputSet = JsonUtil.createInputSetFromJsonFiles(Path.of(jsonPathStr));
             LOG.info(inputSet.getPricingParams());
             LOG.info("Start the pricing-loop.");
             for (MarketData marketData : inputSet.getMarketDataList()) {

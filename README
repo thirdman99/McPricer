@@ -1,18 +1,27 @@
-The code under this repository can be run either via the run-configurations on the Intellij project, or via Maven.
+The code under this repository can be run either A) via the run-configurations on the Intellij project, or B) via Maven.
 You will need to have JDK11 installed locally.
 
 A) From the Intellij project.
-  1) Open the intellij project directly under the code package.
+  1) Open the intellij project under the top-directory of the downloaded repository.
   2) Run either one of the pre-saved run-configurations in the Intellij.
-        "Main" (to run the main-routine), TestPricer (to run the tests)
+        "Main" (to run the main-routine)
+        "TestPricer" (to run the tests)
   3) You can also run the below run-configurations,
-     which will be effectively the same procedures as the above, but will use the Maven commands instead.
-        Mvn Main, Mvn Test
+     which will be effectively the same procedures as the above, but will use the Maven commands instead:
+        "Mvn Main"
+        "Mvn Test"
 
-B) From the command terminal. (This is equivalent to the above A.3.)
+B) Use Maven from the command terminal under the top-directory of the repository:
+    (This is equivalent to the above A.3.)
   1) Make sure that the env-var JAVA_HOME is set to your local JDK11 package.
-  2) To run the Main routine: mvn exec:java
-  3) To run the tests: mvn surefire:test
+  2) To run the Main routine:
+        mvn exec:java
+  3) To run the tests:
+        mvn surefire:test
+  4) To make/run the executable jar, which runs the main routine:
+     a) mvn package
+     b) java -jar target/McPricer-1-0-SNAPSHOT-shaded.jar ./json
+        (The command-line argument for the Json dir "./json" is optional.)
 
 Two pricers are implemented PricerBS for Black-Scholes, and PricerMC for MonteCarlo.
 The former only supports Vanilla, and the latter can handle different types of products
@@ -20,7 +29,8 @@ as long as they're correctly defined in Product***.java.
 
 Two types of products are defined as per the assignment requirements, ProductVanilla and ProductBarrier.
 
-Json-files are used to defined the inputs as below:
+Json-files are used to define the inputs as below.
+(The dir for these files can be specified in the command-line argument, which is by default "./json".)
 
 pricingParams.json: Contains the pricing-parameters for MonteCarlo such as the number of simulations and seed.
 marketdata.json: Contains the market-data such as spot, vol, risk-free-rate, and quote-date.
@@ -28,4 +38,4 @@ productsVannia.json: Contains Vanilla option products.
 productsBarrier.json: Contains Barrier option products.
 
 The above files can contain multiple definitions (except for pricingParams.json),
-and the main-routine goes through the permutation of all the entries.
+and the main-routine goes through the permutations of all the entries.
