@@ -9,7 +9,8 @@ import com.taka.pricer.Result;
 import com.taka.product.ProductBarrier;
 import com.taka.product.ProductVanilla;
 import com.taka.util.JsonUtil;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,7 +22,7 @@ import java.util.List;
 @Test()
 public class PricerTest {
     private static final boolean UpdateExpectedResults = false;
-    private static final Logger LOG = Logger.getLogger(PricerTest.class);
+    private static final Logger LOG = LogManager.getLogger(PricerTest.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // TODO: In the proper production code,

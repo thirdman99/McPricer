@@ -1,0 +1,22 @@
+<Configuration status="warn">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601} %-5p %t [%c{1}]%x - %m%n%ex"/>
+        </Console>
+        <RollingFile name="RollingFile"
+                     fileName="app.log"
+                     filePattern="app.log.%i">
+            <PatternLayout pattern="%d{DATE} %-5p %x [%t] [%c{1}] %m%n%ex"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

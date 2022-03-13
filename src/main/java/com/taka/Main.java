@@ -7,12 +7,13 @@ import com.taka.pricer.Result;
 import com.taka.product.ProductBarrier;
 import com.taka.product.ProductVanilla;
 import com.taka.util.JsonUtil;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.nio.file.Path;
 
 public class Main {
-    private static final Logger LOG = Logger.getLogger(Main.class);
+    private static final Logger LOG = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
         try {

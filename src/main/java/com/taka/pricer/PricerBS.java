@@ -14,14 +14,14 @@ public class PricerBS implements Pricer {
     @Override
     public Result calc(Product product, MarketData marketData) {
         if (!(product instanceof ProductVanilla)) {
-            throw new IllegalArgumentException("Usupported option type: " + product.getClass().getSimpleName());
+            throw new IllegalArgumentException("Unsupported option type: " + product.getClass().getSimpleName());
         }
         ProductVanilla productVanilla = (ProductVanilla) product;
         CallPut callPut = productVanilla.getCallPut();
         LocalDate date1 = LocalDate.parse(marketData.getQuoteDate(), JsonUtil.DateFormat);
         LocalDate date2 = LocalDate.parse(productVanilla.getExpiryDate(), JsonUtil.DateFormat);
         int daysToExpiry = (int) ChronoUnit.DAYS.between(date1, date2);
-        // TODO: Time to expiry (in years) is approximated with 365.5 days/year days here,
+        // TODO: Time to expiry (in years) is approximated with 365.25 days/year days here,
         // which should be properly calculated based on the calendar.
         double numDaysInYear = 365.25;
         double timeToExpiry = (double) daysToExpiry / numDaysInYear;
@@ -62,17 +62,14 @@ public class PricerBS implements Pricer {
 
     // Approximation function of the cumulative normal distribution, following the recipe from John C. Hull.
     private double cumulativeNormalDist(double x) {
+        if (x < 0.) {
+            return 1.0 - cumulativeNormalDist(-x);
+        }
         double k = 1.0 / (1.0 + 0.2316419 * x);
         double k_sum = k * (0.319381530 + k * (-0.356563782 + k * (1.781477937 +
                 k * (-1.821255978 + 1.330274429 * k))));
 
-        double ret;
-        if (x >= 0.0) {
-            ret = (1.0 - (1.0 / (Math.pow(2 * Math.PI, 0.5))) * Math.exp(-0.5 * x * x) * k_sum);
-        } else {
-            ret = 1.0 - cumulativeNormalDist(-x);
-        }
-        return ret;
+        return (1.0 - (1.0 / (Math.pow(2 * Math.PI, 0.5))) * Math.exp(-0.5 * x * x) * k_sum);
     }
 
     private double probabilityDensity(double x) {

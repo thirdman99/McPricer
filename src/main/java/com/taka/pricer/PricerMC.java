@@ -83,7 +83,7 @@ public class PricerMC implements Pricer {
 
             // Apply a Brownian motion.
             double gaussianRandom = randomNumArr[timeStepCnt];
-            spot *= Math.exp(Math.sqrt(vol * vol * timeStep) * gaussianRandom);
+            spot *= Math.exp(vol * Math.sqrt(timeStep) * gaussianRandom);
 
             // Check if it's knocked-in if the product has that feature (ex. Barrier).
             if (!knockedIn) {
